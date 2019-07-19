@@ -30,6 +30,7 @@ type App struct {
 	InAppPurchases bool
 
 	WhatsNew       string
+	WhatsNewHTML   string
 	Updated        string
 	Size           string
 	Installs       string
@@ -82,6 +83,7 @@ func GetApp(id string) (App, error) {
 	}
 
 	app.WhatsNew = doc.Find("div[itemprop=description].DWPxHb").Last().Find("span").Text()
+	app.WhatsNewHTML, _ = doc.Find("div[itemprop=description].DWPxHb").Last().Find("span").Html()
 	doc.Find("div.BgcNfc").Each(func(_ int, p *goquery.Selection) {
 		val := p.Parent().Find("span").Last().Text()
 		switch p.Text() {
